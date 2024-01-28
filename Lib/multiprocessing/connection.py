@@ -643,9 +643,12 @@ def SocketClient(address):
     family = address_type(address)
     with socket.socket( getattr(socket, family) ) as s:
         s.setblocking(True)
-        s.connect(address)
-        return Connection(s.detach())
-
+        while True:
+            try:
+                s.connect(address)
+                return Connection(s.detach())
+            except ConnectionRefusedError:
+                time.sleep(0.1)
 #
 # Definitions for connections based on named pipes
 #
