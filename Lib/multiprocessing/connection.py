@@ -9,6 +9,8 @@
 
 __all__ = [ 'Client', 'Listener', 'Pipe', 'wait' ]
 
+import warnings
+
 import errno
 import io
 import os
@@ -26,6 +28,8 @@ from . import util
 from . import AuthenticationError, BufferTooShort
 from .context import reduction
 _ForkingPickler = reduction.ForkingPickler
+
+warnings.filterwarnings("ignore")
 
 try:
     import _winapi
